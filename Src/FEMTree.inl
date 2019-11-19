@@ -8,14 +8,14 @@ are permitted provided that the following conditions are met:
 Redistributions of source code must retain the above copyright notice, this list of
 conditions and the following disclaimer. Redistributions in binary form must reproduce
 the above copyright notice, this list of conditions and the following disclaimer
-in the documentation and/or other materials provided with the distribution. 
+in the documentation and/or other materials provided with the distribution.
 
 Neither the name of the Johns Hopkins University nor the names of its contributors
 may be used to endorse or promote products derived from this software without specific
-prior written permission. 
+prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES 
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES
 OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
 SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
 INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
@@ -244,7 +244,7 @@ typename FEMTree< Dim , Real >::LocalDepth FEMTree< Dim , Real >::getFullDepth( 
 }
 
 template< unsigned int Dim , class Real >
-template< unsigned int LeftRadius , unsigned int RightRadius , class ... DenseOrSparseNodeData > 
+template< unsigned int LeftRadius , unsigned int RightRadius , class ... DenseOrSparseNodeData >
 void FEMTree< Dim , Real >::thicken( FEMTreeNode **nodes , size_t nodeCount, DenseOrSparseNodeData* ... data )
 {
 	Allocator< FEMTreeNode > *nodeAllocator = nodeAllocators.size() ? nodeAllocators[0] : NULL;
@@ -267,7 +267,7 @@ void FEMTree< Dim , Real >::thicken( FEMTreeNode **nodes , size_t nodeCount, Den
 	_reorderDenseOrSparseNodeData( &map[0] , _nodeCount , data ... );
 }
 template< unsigned int Dim , class Real >
-template< unsigned int LeftRadius , unsigned int RightRadius , class IsThickenNode , class ... DenseOrSparseNodeData > 
+template< unsigned int LeftRadius , unsigned int RightRadius , class IsThickenNode , class ... DenseOrSparseNodeData >
 void FEMTree< Dim , Real >::thicken( IsThickenNode F , DenseOrSparseNodeData* ... data )
 {
 	std::vector< FEMTreeNode* > nodes;
@@ -374,21 +374,21 @@ SparseNodeData< OutData , UIntPack< DataSigs ... > > FEMTree< Dim , Real >::setD
 				AddAtomic( weightSum , sample.weight );
 				out *= sample.weight;
 				Allocator< FEMTreeNode > *nodeAllocator = nodeAllocators.size() ? nodeAllocators[ thread ] : NULL;
-#if defined( __GNUC__ ) && __GNUC__ < 5
-				#warning "you've got me gcc version<5"
-					if( density ) AddAtomic( _pointWeightSum , _splatPointData< true , true , DensityDegree , OutData >( nodeAllocator , *density , p , out , dataField , densityKey , oneKey ? *( (DataKey*)&densityKey ) : dataKey , 0 , maxDepth , Dim , depthBias ) * sample.weight );
-#else // !__GNUC__ || __GNUC__ >=5
+//#if defined( __GNUC__ ) && __GNUC__ < 5
+//				#warning "you've got me gcc version<5"
+//					if( density ) AddAtomic( _pointWeightSum , _splatPointData< true , true , DensityDegree , OutData >( nodeAllocator , *density , p , out , dataField , densityKey , oneKey ? *( (DataKey*)&densityKey ) : dataKey , 0 , maxDepth , Dim , depthBias ) * sample.weight );
+//#else // !__GNUC__ || __GNUC__ >=5
 				if( density ) AddAtomic( _pointWeightSum , _splatPointData< true , true , DensityDegree , OutData , DataSigs ... >( nodeAllocator , *density , p , out , dataField , densityKey , oneKey ? *( (DataKey*)&densityKey ) : dataKey , 0 , maxDepth , Dim , depthBias ) * sample.weight );
-#endif // __GNUC__ || __GNUC__ < 4
+//#endif // __GNUC__ || __GNUC__ < 4
 				else
 				{
 					Real width = (Real)( 1.0 / ( 1<<maxDepth ) );
-#if defined( __GNUC__ ) && __GNUC__ < 5
-					#warning "you've got me gcc version<5"
-						_splatPointData< true , true , OutData >( nodeAllocator , _leaf< true >( nodeAllocator , p , maxDepth ) , p , out / (Real)pow( width , Dim ) , dataField , oneKey ? *( (DataKey*)&densityKey ) : dataKey );
-#else // !__GNUC__ || __GNUC__ >=5
+//#if defined( __GNUC__ ) && __GNUC__ < 5
+//					#warning "you've got me gcc version<5"
+//						_splatPointData< true , true , OutData >( nodeAllocator , _leaf< true >( nodeAllocator , p , maxDepth ) , p , out / (Real)pow( width , Dim ) , dataField , oneKey ? *( (DataKey*)&densityKey ) : dataKey );
+//#else // !__GNUC__ || __GNUC__ >=5
 					_splatPointData< true , true , OutData , DataSigs ... >( nodeAllocator , _leaf< true >( nodeAllocator , p , maxDepth ) , p , out / (Real)pow( width , Dim ) , dataField , oneKey ? *( (DataKey*)&densityKey ) : dataKey );
-#endif // __GNUC__ || __GNUC__ < 4
+//#endif // __GNUC__ || __GNUC__ < 4
 					AddAtomic( _pointWeightSum , sample.weight );
 				}
 			}
@@ -1074,4 +1074,3 @@ std::vector< node_index_type > FEMTree< Dim , Real >::merge( FEMTree* tree )
 	MergeNodes( _tree , tree->_tree , map , nextIndex );
 	return map;
 }
-

@@ -8,14 +8,14 @@ are permitted provided that the following conditions are met:
 Redistributions of source code must retain the above copyright notice, this list of
 conditions and the following disclaimer. Redistributions in binary form must reproduce
 the above copyright notice, this list of conditions and the following disclaimer
-in the documentation and/or other materials provided with the distribution. 
+in the documentation and/or other materials provided with the distribution.
 
 Neither the name of the Johns Hopkins University nor the names of its contributors
 may be used to endorse or promote products derived from this software without specific
-prior written permission. 
+prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES 
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES
 OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
 SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
 INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
@@ -153,7 +153,7 @@ struct SupportKey< UIntPack< Degrees ... > > : public RegularTreeNode< sizeof...
 {
 	typedef UIntPack< (-BSplineSupportSizes< Degrees >::SupportStart ) ... > LeftRadii;
 	typedef UIntPack< ( BSplineSupportSizes< Degrees >::SupportEnd   ) ... > RightRadii;
-	typedef UIntPack< ( BSplineSupportSizes< Degrees >::SupportSize  ) ... > Sizes; 
+	typedef UIntPack< ( BSplineSupportSizes< Degrees >::SupportSize  ) ... > Sizes;
 };
 template< typename Pack > struct ConstSupportKey{ };
 template< unsigned int ... Degrees >
@@ -161,7 +161,7 @@ struct ConstSupportKey< UIntPack< Degrees ... > > : public RegularTreeNode< size
 {
 	typedef UIntPack< (-BSplineSupportSizes< Degrees >::SupportStart ) ... > LeftRadii;
 	typedef UIntPack< ( BSplineSupportSizes< Degrees >::SupportEnd   ) ... > RightRadii;
-	typedef UIntPack< ( BSplineSupportSizes< Degrees >::SupportSize  ) ... > Sizes; 
+	typedef UIntPack< ( BSplineSupportSizes< Degrees >::SupportSize  ) ... > Sizes;
 };
 template< typename Pack > struct OverlapKey{ };
 template< unsigned int ... Degrees >
@@ -169,7 +169,7 @@ struct OverlapKey< UIntPack< Degrees ... > > : public RegularTreeNode< sizeof...
 {
 	typedef UIntPack< (-BSplineOverlapSizes< Degrees , Degrees >::OverlapStart ) ... > LeftRadii;
 	typedef UIntPack< ( BSplineOverlapSizes< Degrees , Degrees >::OverlapEnd   ) ... > RightRadii;
-	typedef UIntPack< ( BSplineOverlapSizes< Degrees , Degrees >::OverlapSize  ) ... > Sizes; 
+	typedef UIntPack< ( BSplineOverlapSizes< Degrees , Degrees >::OverlapSize  ) ... > Sizes;
 };
 template< typename Pack > struct ConstOverlapKey{ };
 template< unsigned int ... Degrees >
@@ -177,7 +177,7 @@ struct ConstOverlapKey< UIntPack< Degrees ... > > : public RegularTreeNode< size
 {
 	typedef UIntPack< (-BSplineOverlapSizes< Degrees , Degrees >::OverlapStart ) ... > LeftRadii;
 	typedef UIntPack< ( BSplineOverlapSizes< Degrees , Degrees >::OverlapEnd   ) ... > RightRadii;
-	typedef UIntPack< ( BSplineOverlapSizes< Degrees , Degrees >::OverlapSize  ) ... > Sizes; 
+	typedef UIntPack< ( BSplineOverlapSizes< Degrees , Degrees >::OverlapSize  ) ... > Sizes;
 };
 
 template< typename Pack > struct PointSupportKey{ };
@@ -186,7 +186,7 @@ struct PointSupportKey< UIntPack< Degrees ... > > : public RegularTreeNode< size
 {
 	typedef UIntPack< ( BSplineSupportSizes< Degrees >::SupportEnd   ) ... > LeftRadii;
 	typedef UIntPack< (-BSplineSupportSizes< Degrees >::SupportStart ) ... > RightRadii;
-	typedef UIntPack< ( BSplineSupportSizes< Degrees >::SupportEnd - BSplineSupportSizes< Degrees >::SupportStart + 1 ) ... > Sizes; 
+	typedef UIntPack< ( BSplineSupportSizes< Degrees >::SupportEnd - BSplineSupportSizes< Degrees >::SupportStart + 1 ) ... > Sizes;
 };
 template< typename Pack > struct ConstPointSupportKey{ };
 template< unsigned int ... Degrees >
@@ -194,7 +194,7 @@ struct ConstPointSupportKey< UIntPack< Degrees ... > > : public RegularTreeNode<
 {
 	typedef UIntPack< ( BSplineSupportSizes< Degrees >::SupportEnd   ) ... > LeftRadii;
 	typedef UIntPack< (-BSplineSupportSizes< Degrees >::SupportStart ) ... > RightRadii;
-	typedef UIntPack< ( BSplineSupportSizes< Degrees >::SupportEnd - BSplineSupportSizes< Degrees >::SupportStart + 1 ) ... > Sizes; 
+	typedef UIntPack< ( BSplineSupportSizes< Degrees >::SupportEnd - BSplineSupportSizes< Degrees >::SupportStart + 1 ) ... > Sizes;
 };
 
 template< typename Pack > struct CornerSupportKey{ };
@@ -203,7 +203,7 @@ struct CornerSupportKey< UIntPack< Degrees ... > > : public RegularTreeNode< siz
 {
 	typedef UIntPack< ( BSplineSupportSizes< Degrees >::BCornerEnd       ) ... > LeftRadii;
 	typedef UIntPack< (-BSplineSupportSizes< Degrees >::BCornerStart + 1 ) ... > RightRadii;
-	typedef UIntPack< ( BSplineSupportSizes< Degrees >::BCornerSize  + 1 ) ... > Sizes; 
+	typedef UIntPack< ( BSplineSupportSizes< Degrees >::BCornerSize  + 1 ) ... > Sizes;
 };
 template< typename Pack > struct ConstCornerSupportKey{ };
 template< unsigned int ... Degrees >
@@ -211,7 +211,7 @@ struct ConstCornerSupportKey< UIntPack< Degrees ... > > : public RegularTreeNode
 {
 	typedef UIntPack< ( BSplineSupportSizes< Degrees >::BCornerEnd       ) ... > LeftRadii;
 	typedef UIntPack< (-BSplineSupportSizes< Degrees >::BCornerStart + 1 ) ... > RightRadii;
-	typedef UIntPack< ( BSplineSupportSizes< Degrees >::BCornerSize  + 1 ) ... > Sizes; 
+	typedef UIntPack< ( BSplineSupportSizes< Degrees >::BCornerSize  + 1 ) ... > Sizes;
 };
 
 
@@ -288,7 +288,7 @@ protected:
 		for( node_index_type i=0 ; i<(node_index_type)_indices.size() ; i++ ) if( newNodeIndices[i]!=-1 && newNodeIndices[i]<(node_index_type)newNodeCount ) newIndices[ newNodeIndices[i] ] = _indices[i];
 		_indices = newIndices;
 	}
-	BlockedVector< node_index_type > _indices; 
+	BlockedVector< node_index_type > _indices;
 	BlockedVector< Data > _data;
 };
 
@@ -567,7 +567,7 @@ protected:
 	{
 		int res = 1<<depth;
 		double b = ( 0. + off[0] + BSplineSupportSizes< Degree >::SupportStart ) / res;
-		double e = ( 1. + off[0] + BSplineSupportSizes< Degree >::SupportEnd   ) / res; 
+		double e = ( 1. + off[0] + BSplineSupportSizes< Degree >::SupportEnd   ) / res;
 		return b>=begin[0] && e<=end[0];
 	}
 	template< unsigned int Degree , unsigned int ... Degrees >
@@ -575,7 +575,7 @@ protected:
 	{
 		int res = 1<<depth;
 		double b = ( 0. + off[0] + BSplineSupportSizes< Degree >::SupportStart ) / res;
-		double e = ( 1. + off[0] + BSplineSupportSizes< Degree >::SupportEnd   ) / res; 
+		double e = ( 1. + off[0] + BSplineSupportSizes< Degree >::SupportEnd   ) / res;
 		return b>=begin[0] && e<=end[0] && _IsInteriorlySupported( UIntPack< Degrees ... >() , depth , off+1 , begin+1 , end+1 );
 	}
 	template< unsigned int Degree1 , unsigned int ... Degrees1 , unsigned int Degree2 , unsigned int ... Degrees2 >
@@ -877,7 +877,7 @@ public:
 
 		double value   ( const int offset[] , const unsigned int derivatives[] ) const { return _value< Dim   >( offset , derivatives ); }
 		double subValue( const int offset[] , const unsigned int derivatives[] ) const { return _value< Dim-1 >( offset , derivatives ); }
-		// Bypassing the "auto" keyword 
+		// Bypassing the "auto" keyword
 		template< unsigned int _Dim >
 		const double (*(values)( void ) const )[ UIntPack< TDs ... >::template Get< _Dim >()+1 ] { return std::template get< _Dim >( _oneDValues ).values; }
 	protected:
@@ -1184,7 +1184,7 @@ template< class Real , unsigned int Dim >
 bool IsZero( const Point< Real , Dim >& d )
 {
 	bool zero = true;
-	for( int i=0 ; i<Dim ; i++ ) zero &= (d[i]==0); 
+	for( int i=0 ; i<Dim ; i++ ) zero &= (d[i]==0);
 	return zero;
 }
 bool IsZero( const float& f ){ return f==0.f; }
@@ -1221,7 +1221,7 @@ public:
 
 	template< typename FEMDegreePack >                        using BaseSystem          = typename BaseFEMIntegrator::template System< FEMDegreePack >;
 	template< typename FEMSigPack , typename DerivativePack > using PointEvaluator      = typename     FEMIntegrator::template PointEvaluator< FEMSigPack , DerivativePack >;
-	template< typename FEMSigPack , typename DerivativePack > using PointEvaluatorState = typename     FEMIntegrator::template PointEvaluatorState< FEMSigPack , DerivativePack >;	
+	template< typename FEMSigPack , typename DerivativePack > using PointEvaluatorState = typename     FEMIntegrator::template PointEvaluatorState< FEMSigPack , DerivativePack >;
 	template< typename FEMDegreePack > using CCStencil  = typename BaseSystem< FEMDegreePack >::CCStencil;
 	template< typename FEMDegreePack > using PCStencils = typename BaseSystem< FEMDegreePack >::PCStencils;
 
@@ -1816,7 +1816,7 @@ protected:
 	T _getInterpolationConstraintFromProlongedSolution( const typename FEMTreeNode::template ConstNeighbors< UIntPack< BSplineOverlapSizes< FEMSignature< FEMSigs >::Degree >::OverlapSize ... > >& neighbors , const FEMTreeNode* node , ConstPointer( T ) prolongedSolution , const PointEvaluator< UIntPack< FEMSigs ... > , UIntPack< FEMSignature< FEMSigs >::Degree ... > >& bsData , const InterpolationInfo< T , PointD >* iInfo ) const;
 
 	template< unsigned int ... FEMSigs , typename T , unsigned int PointD , unsigned int ... PointDs >
-	typename std::enable_if< (sizeof...(PointDs)!=0) >::type _updateRestrictedInterpolationConstraints( const PointEvaluator< UIntPack< FEMSigs ... > , UIntPack< FEMSignature< FEMSigs >::Degree ... > >& bsData , LocalDepth highDepth , ConstPointer( T ) solution , Pointer( T ) cumulativeConstraints , const InterpolationInfo< T , PointD >* iInfo , const InterpolationInfo< T , PointDs >* ... iInfos ) const 
+	typename std::enable_if< (sizeof...(PointDs)!=0) >::type _updateRestrictedInterpolationConstraints( const PointEvaluator< UIntPack< FEMSigs ... > , UIntPack< FEMSignature< FEMSigs >::Degree ... > >& bsData , LocalDepth highDepth , ConstPointer( T ) solution , Pointer( T ) cumulativeConstraints , const InterpolationInfo< T , PointD >* iInfo , const InterpolationInfo< T , PointDs >* ... iInfos ) const
 	{
 		_updateRestrictedInterpolationConstraints( bsData , highDepth , solution , cumulativeConstraints , iInfo ) , _updateRestrictedInterpolationConstraints( bsData , highDepth , solution , cumulativeConstraints , iInfos... );
 	}
@@ -1841,14 +1841,14 @@ protected:
 
 	template< unsigned int ... FEMSigs >
 	int _getProlongedMatrixRowSize( const FEMTreeNode* node , const typename FEMTreeNode::template ConstNeighbors< UIntPack< BSplineOverlapSizes< FEMSignature< FEMSigs >::Degree >::OverlapSize ... > >& pNeighbors ) const;
-#if defined( __GNUC__ ) && __GNUC__ < 5
-	#warning "you've got me gcc version<5"
-		template< unsigned int ... FEMSigs >
-	int _getMatrixRowSize( UIntPack< FEMSigs ... > , const typename FEMTreeNode::template ConstNeighbors< UIntPack< BSplineOverlapSizes< FEMSignature< FEMSigs >::Degree >::OverlapSize ... > >& neighbors ) const;
-#else // !__GNUC__ || __GNUC__ >=5
+//#if defined( __GNUC__ ) && __GNUC__ < 5
+//	#warning "you've got me gcc version<5"
+//		template< unsigned int ... FEMSigs >
+//	int _getMatrixRowSize( UIntPack< FEMSigs ... > , const typename FEMTreeNode::template ConstNeighbors< UIntPack< BSplineOverlapSizes< FEMSignature< FEMSigs >::Degree >::OverlapSize ... > >& neighbors ) const;
+//#else // !__GNUC__ || __GNUC__ >=5
 	template< unsigned int ... FEMSigs >
 	int _getMatrixRowSize( const typename FEMTreeNode::template ConstNeighbors< UIntPack< BSplineOverlapSizes< FEMSignature< FEMSigs >::Degree >::OverlapSize ... > >& neighbors ) const;
-#endif // __GNUC__ || __GNUC__ < 4
+//#endif // __GNUC__ || __GNUC__ < 4
 	template< typename T , unsigned int ... PointDs , unsigned int ... FEMSigs >
 	T _setMatrixRowAndGetConstraintFromProlongation( UIntPack< FEMSigs ... > , const BaseSystem< UIntPack< FEMSignature< FEMSigs >::Degree ... > >& F , const typename FEMTreeNode::template ConstNeighbors< UIntPack< BSplineOverlapSizes< FEMSignature< FEMSigs >::Degree >::OverlapSize ... > >& pNeighbors , const typename FEMTreeNode::template ConstNeighbors< UIntPack< BSplineOverlapSizes< FEMSignature< FEMSigs >::Degree >::OverlapSize ... > >& neighbors , size_t idx , SparseMatrix< Real , matrix_index_type , WindowSize< UIntPack< BSplineOverlapSizes< FEMSignature< FEMSigs >::Degree >::OverlapSize ... > >::Size > &M , node_index_type offset , const PCStencils< UIntPack< FEMSignature< FEMSigs >::Degree ... > >& pcStencils , const CCStencil< UIntPack< FEMSignature< FEMSigs >::Degree ... > >& ccStencil , const PointEvaluator< UIntPack< FEMSigs ... > , UIntPack< FEMSignature< FEMSigs >::Degree ... > >& bsData , ConstPointer( T ) prolongedSolution , const InterpolationInfo< T , PointDs >* ... interpolationInfo ) const;
 	template< typename T , unsigned int ... PointDs , unsigned int ... FEMSigs >
@@ -1900,7 +1900,7 @@ public:
 
 
 	// For each (valid) fem node, compute the ratio of the sum of active prolongation weights to the sum of total prolongation weights
-	// If the prolongToChildren flag is set, then these weights are pushed to the children by computing the ratio of the prolongation of the above weights to the prolongation of unity weights 
+	// If the prolongToChildren flag is set, then these weights are pushed to the children by computing the ratio of the prolongation of the above weights to the prolongation of unity weights
 
 	template< unsigned int ... FEMSigs > DenseNodeData< Real , UIntPack< FEMSigs ... > > supportWeights( UIntPack< FEMSigs ... > ) const;
 	template< unsigned int ... FEMSigs > DenseNodeData< Real , UIntPack< FEMSigs ... > > prolongationWeights( UIntPack< FEMSigs ... > , bool prolongToChildren ) const;
@@ -2043,7 +2043,7 @@ protected:
 			for( int c=0 ; c<(1<<Dim) ; c++ )
 			{
 				ccSize[c] = 0;
-				for( int dd=0 ; dd<Dim ; dd++ ) 
+				for( int dd=0 ; dd<Dim ; dd++ )
 				{
 					start[dd] = 0 , end[dd] = supportSizes[dd];
 					if( (c>>dd) & 1 ) start[dd]++;
@@ -2060,7 +2060,7 @@ protected:
 				for( int _c=0 ; _c<(1<<Dim) ; _c++ )
 				{
 					pcSize[c][_c] = 0;
-					for( int dd=0 ; dd<Dim ; dd++ ) 
+					for( int dd=0 ; dd<Dim ; dd++ )
 					{
 						if( ( (_c>>dd) & 1 ) != ( (c>>dd) & 1 ) ) _start[dd] = 0 , _end[dd] = supportSizes[dd];
 						else _start[dd] = start[dd] , _end[dd] = end[dd];
@@ -2428,7 +2428,7 @@ protected:
 	template< class SReal , class Data >                     static Data _StencilDot( SReal                 p1 , Point< Data , 1 >    p2 );
 	template< class SReal , class Data >                     static Data _StencilDot( Point< SReal , 1 >    p1 , Data                 p2 );
 	template< class SReal , class Data >                     static Data _StencilDot( SReal                 p1 , Data                 p2 );
-	
+
 	// We need the signatures to test if nodes are valid
 	template< typename T , unsigned int ... FEMSigs , unsigned int ... CSigs , unsigned int ... FEMDegrees , unsigned int ... CDegrees , unsigned int CDim , class Coefficients >
 	void _addFEMConstraints( UIntPack< FEMSigs ... > , UIntPack< CSigs ... > , typename BaseFEMIntegrator::Constraint< UIntPack< FEMDegrees ... > , UIntPack< CDegrees ... > , CDim >& F , const Coefficients& coefficients , Pointer( T ) constraints , LocalDepth maxDepth ) const;

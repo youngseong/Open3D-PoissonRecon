@@ -8,14 +8,14 @@ are permitted provided that the following conditions are met:
 Redistributions of source code must retain the above copyright notice, this list of
 conditions and the following disclaimer. Redistributions in binary form must reproduce
 the above copyright notice, this list of conditions and the following disclaimer
-in the documentation and/or other materials provided with the distribution. 
+in the documentation and/or other materials provided with the distribution.
 
 Neither the name of the Johns Hopkins University nor the names of its contributors
 may be used to endorse or promote products derived from this software without specific
-prior written permission. 
+prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
-EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES 
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES
 OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
 SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
 INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
@@ -55,7 +55,7 @@ void BaseFEMIntegrator::Constraint< UIntPack< TDegrees ... > , UIntPack< CDegree
 	static const int Dim = sizeof ... ( TDegrees );
 	typedef UIntPack< BSplineOverlapSizes< TDegrees, CDegrees >::OverlapSize ... > OverlapSizes;
 	// [NOTE] We want the center to be at the first node of the brood, which is not the case when childDepth is 1.
-	int center = ( 1<<_highDepth )>>1 ; center = ( center>>1 )<<1;	
+	int center = ( 1<<_highDepth )>>1 ; center = ( center>>1 )<<1;
 	int fineCenter[Dim] , femOffset[Dim] , cOffset[Dim];
 	static const int overlapStart[] = { ( IterateFirst ? BSplineOverlapSizes< CDegrees , TDegrees >::OverlapStart : BSplineOverlapSizes< TDegrees , CDegrees >::OverlapStart ) ... };
 	std::function< void ( int , int )               > outerUpdateState = [&]( int d , int i ){ fineCenter[Dim-d-1] = i+center; };
@@ -147,7 +147,7 @@ void BaseFEMIntegrator::RestrictionProlongation< UIntPack< TDegrees ... > >::set
 {
 	static const int Dim = sizeof ... ( TDegrees );
 	// [NOTE] We want the center to be at the first node of the brood, which is not the case when childDepth is 1.
-	int highCenter = ( 1<<_highDepth )>>1 ; highCenter = ( highCenter>>1 )<<1;	
+	int highCenter = ( 1<<_highDepth )>>1 ; highCenter = ( highCenter>>1 )<<1;
 	int pOff[Dim] , cOff[Dim];
 	static const int offsets[] = { BSplineSupportSizes< TDegrees >::DownSample0Start ... };
 	std::function< void ( double& )            > innerFunction    = [&]( double& v ){ v = upSampleCoefficient( pOff , cOff ); };
@@ -792,16 +792,16 @@ void FEMTree< Dim , Real >::_solveRegularMG( UIntPack< FEMSigs ... > , typename 
 	}
 }
 
-#if defined( __GNUC__ ) && __GNUC__ < 5
-#warning "you've got me gcc version<5"
-template< unsigned int Dim , class Real >
-template< unsigned int ... FEMSigs >
-int FEMTree< Dim , Real >::_getMatrixRowSize( UIntPack< FEMSigs ... > , const typename FEMTreeNode::template ConstNeighbors< UIntPack< BSplineOverlapSizes< FEMSignature< FEMSigs >::Degree >::OverlapSize ... > >& neighbors ) const
-#else // !__GNUC__ || __GNUC__ >=5
+//#if defined( __GNUC__ ) && __GNUC__ < 5
+//#warning "you've got me gcc version<5"
+//template< unsigned int Dim , class Real >
+//template< unsigned int ... FEMSigs >
+//int FEMTree< Dim , Real >::_getMatrixRowSize( UIntPack< FEMSigs ... > , const typename FEMTreeNode::template ConstNeighbors< UIntPack< BSplineOverlapSizes< FEMSignature< FEMSigs >::Degree >::OverlapSize ... > >& neighbors ) const
+//#else // !__GNUC__ || __GNUC__ >=5
 template< unsigned int Dim , class Real >
 template< unsigned int ... FEMSigs >
 int FEMTree< Dim , Real >::_getMatrixRowSize( const typename FEMTreeNode::template ConstNeighbors< UIntPack< BSplineOverlapSizes< FEMSignature< FEMSigs >::Degree >::OverlapSize ... > >& neighbors ) const
-#endif // __GNUC__ || __GNUC__ < 4
+//#endif // __GNUC__ || __GNUC__ < 4
 {
 	typedef UIntPack< BSplineOverlapSizes< FEMSignature< FEMSigs >::Degree >::OverlapSize ... > OverlapSizes;
 
@@ -892,7 +892,7 @@ void FEMTree< Dim , Real >::_addPointValues( UIntPack< FEMSigs ... > , StaticWin
 				for( int d=0 ; d<Dim-1 ; d++ ) start[d] = idx[d] + (int)OverlapRadii::Values[d] - (int)LeftPointSupportRadii::Values[d] , end[d] = idx[d] + (int)OverlapRadii::Values[d] + (int)RightPointSupportRadii::Values[d] + 1;
 				WindowLoop< Dim , Dim-1 >::Run
 				(
-					start , end , 
+					start , end ,
 					[&]( int d , int i ){ _idx[d] = i - (int)OverlapRadii::Values[d] + off[d]; } ,
 					[&]( const WindowSlice< Real , UIntPack< OverlapSizes::template Get< Dim-1 >() > > pointValues , ConstWindowSlice< const FEMTreeNode* , UIntPack< OverlapSizes::template Get< Dim-1 >() > > neighbors )
 					{
@@ -1023,7 +1023,7 @@ T FEMTree< Dim , Real >::_setMatrixRowAndGetConstraintFromProlongation( UIntPack
 		LocalDepth d ; LocalOffset off;
 		_localDepthAndOffset( node , d , off );
 		Real temp = (Real)F.ccIntegrate( off , off ) + pointValues.data[ WindowIndex< OverlapSizes , OverlapRadii >::Index ];
-	
+
 		row[count++] = MatrixEntry< Real , matrix_index_type >( (matrix_index_type)( nodeIndex-offset ) , temp );
 		LocalOffset _off;
 		WindowLoop< Dim >::Run
@@ -1162,7 +1162,7 @@ int FEMTree< Dim , Real >::_setProlongedMatrixRow( const typename BaseFEMIntegra
 		_localDepthAndOffset( node , d , off );
 		WindowLoop< Dim >::Run
 		(
-			start , end , 
+			start , end ,
 			[&]( int , int ){;} ,
 			[&]( const FEMTreeNode* node , const Real& pointValue )
 			{
@@ -1625,7 +1625,7 @@ int FEMTree< Dim , Real >::_getSliceMatrixAndProlongationConstraints( UIntPack< 
 		{
 			ConstOneRingNeighborKey& neighborKey = neighborKeys[ thread ];
 			FEMTreeNode* node = _sNodes.treeNodes[i+nBegin];
-			// Get the matrix row size	
+			// Get the matrix row size
 			typename FEMTreeNode::template ConstNeighbors< OverlapSizes > neighbors , pNeighbors;
 			neighborKey.getNeighbors( OverlapRadii() , OverlapRadii() , node , pNeighbors , neighbors );
 			// Set the row entries
@@ -1679,12 +1679,12 @@ SparseMatrix< Real , matrix_index_type > FEMTree< Dim , Real >::systemMatrix( UI
 			typename FEMTreeNode::template ConstNeighbors< OverlapSizes > neighbors;
 			neighborKey.getNeighbors( OverlapRadii() , OverlapRadii() , _sNodes.treeNodes[i] , neighbors );
 
-#if defined( __GNUC__ ) && __GNUC__ < 5
-			#warning "you've got me gcc version<5"
-				matrix.setRowSize( ii , _getMatrixRowSize( UIntPack< FEMSigs ... >() , neighbors ) );
-#else // !__GNUC__ || __GNUC__ >=5
+//#if defined( __GNUC__ ) && __GNUC__ < 5
+//			#warning "you've got me gcc version<5"
+//				matrix.setRowSize( ii , _getMatrixRowSize( UIntPack< FEMSigs ... >() , neighbors ) );
+//#else // !__GNUC__ || __GNUC__ >=5
 			matrix.setRowSize( ii , _getMatrixRowSize< FEMSigs ... >( neighbors ) );
-#endif // __GNUC__ || __GNUC__ < 4
+//#endif // __GNUC__ || __GNUC__ < 4
 			_setMatrixRowAndGetConstraintFromProlongation( UIntPack< FEMSigs ... >() , F ,  neighbors , neighbors , matrix[ii] , _sNodesBegin(depth) , stencils , stencil , bsData , ( ConstPointer( T ) )NullPointer( T ) , interpolationInfo ... );
 		}
 	}
@@ -2137,7 +2137,7 @@ DenseNodeData< Real , UIntPack< FEMSigs ... > > FEMTree< Dim , Real >::prolongat
 							if( _isValidFEM1Node( node ) ) partialSum += stencilValue;
 						}
 					} ,
-						neighbors.neighbors() 
+						neighbors.neighbors()
 						);
 				}
 				weights[i] = (Real)( partialSum / totalSum );
@@ -2246,7 +2246,7 @@ void FEMTree< Dim , Real >::_upSample( UIntPack< FEMSigs ... > , typename BaseFE
 		const int Start[2][Dim] = { { BSplineSupportSizes< Degrees >::DownSample0Start ... } , { BSplineSupportSizes< Degrees >::DownSample1Start ... } };
 		const int   End[2][Dim] = { { BSplineSupportSizes< Degrees >::DownSample0End   ... } , { BSplineSupportSizes< Degrees >::DownSample1End   ... } };
 		for( int d=0 ; d<Dim ; d++ ) start[d] = Start[(c>>d)&1][d] - Start[0][d] , end[d] = - Start[0][d] + End[(c>>d)&1][d] + 1;
-	} 
+	}
 	);
 	// For Dirichlet constraints, can't get to all children from parents because boundary nodes are invalid
 	ThreadPool::Parallel_for( _sNodesBegin(highDepth) , _sNodesEnd(highDepth) , [&]( unsigned int thread , size_t i )
@@ -2591,7 +2591,7 @@ void FEMTree< Dim , Real >::solveSystem( UIntPack< FEMSigs ... > , typename Base
 			if( maxSolveDepth<10 )
 				if( solverInfo.vCycles<10 ) printf( "Cycle[%d] Depth[%d/%d]:\t" , cycle , depth , maxSolveDepth );
 				else                        printf( "Cycle[%2d] Depth[%d/%d]:\t" , cycle , depth , maxSolveDepth );
-			else 
+			else
 				if( solverInfo.vCycles<10 ) printf( "Cycle[%d] Depth[%2d/%d]:\t" , cycle , depth , maxSolveDepth );
 				else                        printf( "Cycle[%2d] Depth[%2d/%d]:\t" , cycle , depth , maxSolveDepth );
 			printf( "Updated constraints / Got system / Solved in: %6.3f / %6.3f / %6.3f\t(%.3f MB)\tNodes: %llu\n" , sStats.constraintUpdateTime , sStats.systemTime , sStats.solveTime , _LocalMemoryUsage , (unsigned long long)femNodes );
@@ -2774,8 +2774,8 @@ void FEMTree< Dim , Real >::_addFEMConstraints( UIntPack< FEMSigs ... > , UIntPa
 	typedef UIntPack< (  BSplineOverlapSizes< FEMDegrees , CDegrees >::OverlapEnd   ) ... > RightFEMCOverlapRadii;
 
 	// To set the constraints, we iterate over the splatted normals and compute the dot-product of the divergence of the normal field with all the basis functions.
-	// Within the same depth: set directly as a gather 
-	// Coarser depths 
+	// Within the same depth: set directly as a gather
+	// Coarser depths
 	maxDepth = std::min< LocalDepth >( maxDepth , _maxDepth );
 	Pointer( T ) _constraints = AllocPointer< T >( _sNodesEnd( maxDepth-1 ) );
 	memset( _constraints , 0 , sizeof(T)*( _sNodesEnd(maxDepth-1) ) );
