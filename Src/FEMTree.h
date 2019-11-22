@@ -219,6 +219,7 @@ template< class Data , typename Pack > struct _SparseOrDenseNodeData{};
 template< class Data , unsigned int ... FEMSigs >
 struct _SparseOrDenseNodeData< Data , UIntPack< FEMSigs ... > >
 {
+	virtual ~_SparseOrDenseNodeData() {}
 	static const unsigned int Dim = sizeof ... ( FEMSigs );
 	typedef UIntPack< FEMSigs ... > FEMSignatures;
 	typedef Data data_type;
