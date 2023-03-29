@@ -244,7 +244,7 @@ int RegularTreeNode< Dim , NodeData , DepthAndOffsetType >::maxDepth(void) const
 	if( !children ) return 0;
 	else
 	{
-		int c , d;
+		int c = 0 , d;    // initialize start to prevent -Wmaybe-uninitialized
 		for( int i=0 ; i<(1<<Dim) ; i++ )
 		{
 			d = children[i].maxDepth();

@@ -1508,7 +1508,7 @@ protected:
 		const typename SliceData::SquareCornerIndices& idx = sValues.sliceData.cornerIndices( node );
 		Real x0 = sValues.cornerValues[idx[c0]] , x1 = sValues.cornerValues[idx[c1]];
 		Point< Real , Dim > s;
-		Real start , width;
+		Real start = 0 , width;    // initialize start to prevent -Wmaybe-uninitialized
 		tree._startAndWidth( node , s , width );
 		int o;
 		{
